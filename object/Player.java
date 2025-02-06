@@ -27,7 +27,7 @@ public class Player extends Brain{
     }
 
     @Override
-    public int accelerate() {
+    public Point accelerate() {
         if(right&left){
             right=false;
             left=false;
@@ -64,7 +64,7 @@ public class Player extends Brain{
             angle=999;
         }
 
-        return angle;
+        return new Point(Body.MAX_SPEED, angle);
     }
 
     private enum Direction{

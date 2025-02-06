@@ -22,6 +22,8 @@ public class Main extends Canvas implements Runnable {
 	private Window window;
 	private MainContainer container;
 
+	public static final int HEIGHT=600, WIDTH=HEIGHT*16/9;
+
 	public Main() {
 	}
 
@@ -29,7 +31,7 @@ public class Main extends Canvas implements Runnable {
 		handler = new Handler();
 		camera = new Camera(0, 0);
 		container = new MainContainer();
-		window = new Window(1000, 563, "Test Window", this);
+		window = new Window(WIDTH, HEIGHT, "Test Window", this);
 		start();
 	}
 	

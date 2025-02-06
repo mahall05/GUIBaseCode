@@ -8,7 +8,7 @@ public abstract class Brain {
 
     }
 
-    public abstract int accelerate();
+    public abstract Point accelerate();
     public abstract void tick();
     public abstract void render(Graphics g);
 }
