@@ -27,7 +27,7 @@ public class Body extends GameObject{
 
         if(velX!=0) velX = (Math.abs(velX)-1) * velX/Math.abs(velX);
         if(velY!=0) velY = (Math.abs(velY)-1) * velY/Math.abs(velY);
-        System.out.println("X: "+velX+",   Y: "+velY);
+        System.out.println("X: "+x+",   Y: "+y);
     }
 
     @Override

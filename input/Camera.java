@@ -21,13 +21,13 @@ public class Camera {
 	public void tick() {
 		
 		// An algorithm to move the camera
-		x += ((parent.getX() - x) - 1000/2) * 0.05f;
-		y += ((parent.getY() - y) - 563/2) * 0.05f;
+		//x += ((parent.getX() - x) - 1000/2) * 0.05f;
+		//y += ((parent.getY() - y) - 563/2) * 0.05f;
 		
-		if(x <= 0) x = 0;
-		if(x >= 1032+32) x = 1032+32;
-		if(y <= 0) y = 0;
-		if(y >= 563+64) y = 563+64;
+		//if(x <= 0) x = 0;
+		//if(x >= 1032+32) x = 1032+32;
+		//if(y <= 0) y = 0;
+		//if(y >= 563+64) y = 563+64;
 		
 	}
 	
