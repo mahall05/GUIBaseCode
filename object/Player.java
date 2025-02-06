@@ -27,9 +27,48 @@ public class Player extends Brain{
 
     @Override
     public Point accelerate() {
+        if(right&left){
+            right=false;
+            left=false;
+        }
+        if(up&down){
+            up=false;
+            down=false;
+        }
+
+        Direction d;
+
+        if(up){
+            if(right){
+                d=Direction.NE;
+            }
+            else if(left){
+                d=Direction.NW;
+            }else{
+                d=Direction.N;
+            }
+        }else if(down){
+            if(right){
+                d=Direction.SE;
+            }else if(left){
+                d=Direction.SW;
+            }else{
+                d=Direction.S;
+            }
+        }else if(right){
+            d=Direction.E;
+        }else if(left){
+            d=Direction.W;
+        }else{
+            d=Direction.ZERO;
+        }
         int x = (right&left) ? 0 : (right&!left) ? MOVE_SPEED : (left&!right) ? -MOVE_SPEED : 0;
         int y = (up&down) ? 0 : (down&!up) ? MOVE_SPEED : (up&!down) ? -MOVE_SPEED : 0;
         return new Point(x,y);
+    }
+
+    private enum Direction{
+        N,NE,E,SE,S,SW,W,NW,ZERO
     }
 
     
