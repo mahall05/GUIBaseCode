@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import core.Main;
+
 public class KeyInput extends KeyAdapter {
 	
     //private static ArrayList<KeyLink> keyChain = new ArrayList<KeyLink>();
@@ -15,11 +17,15 @@ public class KeyInput extends KeyAdapter {
         keyChain.put(KeyEvent.VK_S, false);
         keyChain.put(KeyEvent.VK_D, false);
         keyChain.put(KeyEvent.VK_A, false);
+        keyChain.put(KeyEvent.VK_ESCAPE, false);
 	}
 
     public void keyPressed(KeyEvent e){
         int key = e.getKeyCode();
         keyChain.put(key, true);
+        if(key==KeyEvent.VK_ESCAPE){
+            Main.get().getWindow().closeWindow();
+        }
     }
 
     public void keyReleased(KeyEvent e){

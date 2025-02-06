@@ -145,6 +145,10 @@ public class Main extends Canvas implements Runnable {
 		return camera;
 	}
 
+	public Window getWindow(){
+		return window;
+	}
+
 	public static int randomInt(int minInclusive, int maxInclusive){
         int range = maxInclusive - minInclusive + 1;
         int rng = (int)(Math.random() * range) + minInclusive;

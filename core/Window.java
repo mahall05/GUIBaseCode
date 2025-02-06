@@ -9,16 +9,19 @@ import input.mouse.MouseInput;
 public class Window {
     private KeyInput keyListener;
     private MouseInput mouseListener;
+	private JFrame frame;
+	private Main main;
 
 	private int width,height;
 	
 	public Window(int width, int height, String title, Main main) {
 		this.width=width;
 		this.height=height;
+		this.main=main;
         keyListener = new KeyInput();
         mouseListener = new MouseInput(main);
 		
-		JFrame frame = new JFrame(title);     // Creating new frame with the title in the parameters when this class is called
+		frame = new JFrame(title);     // Creating new frame with the title in the parameters when this class is called
 		frame.setPreferredSize(new Dimension(width, height));
 		frame.setMaximumSize(new Dimension(width, height));
 		frame.setMinimumSize(new Dimension(width, height));
@@ -30,7 +33,6 @@ public class Window {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     // Allows the x button to work
 		frame.setLocationRelativeTo(null);     // Box will start in the center
 		frame.setVisible(true);     // Showing the window
-		
 	}
 
 	public int getWidth(){
@@ -38,6 +40,11 @@ public class Window {
 	}
 	public int getHeight(){
 		return height;
+	}
+
+	public void closeWindow(){
+		//main.setEnabled(false);
+		frame.dispose();
 	}
 
 }
