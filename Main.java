@@ -5,7 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Game extends Canvas implements Runnable {
+import input.key.KeyInput;
+import input.mouse.MouseInput;
+
+public class Main extends Canvas implements Runnable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -22,7 +25,7 @@ public class Game extends Canvas implements Runnable {
 	public int ammo = 100;
 	public int hp = 100;
 
-	public Game() {
+	public Main() {
 		new Window(1000, 563, "Wizard Game", this);
 		start();
 		
@@ -165,7 +168,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public static void main(String args[]) {
-		new Game();
+		new Main();
 	}
 
 	

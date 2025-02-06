@@ -1,14 +1,18 @@
+package input.mouse;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import Main;
+import Handler;
 
 public class MouseInput extends MouseAdapter {
 	
 	private Handler handler;
 	private Camera camera;
-	private Game game;
+	private Main game;
 	private SpriteSheet ss;
 	
-	public MouseInput(Handler handler, Camera camera, Game game, SpriteSheet ss) {
+	public MouseInput(Handler handler, Camera camera, Main game, SpriteSheet ss) {
 		this.handler = handler;
 		this.camera = camera;
 		this.game = game;
