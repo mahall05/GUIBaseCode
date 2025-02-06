@@ -6,7 +6,7 @@ import java.awt.Graphics;
 public class Body extends GameObject{
     private Brain brain;
 
-    private static final int MOVE_SPEED = 3;
+    private static final int MOVE_SPEED = 5;
 
     public Body(int x, int y, Brain brain) {
         super(x, y);
@@ -17,6 +17,7 @@ public class Body extends GameObject{
     public void tick() {
 
         int angle = brain.accelerate();
+        //System.out.println("Angle: " + angle);
 
         if(angle!=999){
             velX+= MOVE_SPEED * Math.cos(angle*Math.PI/180);
@@ -29,12 +30,17 @@ public class Body extends GameObject{
         if(velY<-10)velY=-10;
         if(velX<-10)velX=-10;
 
+        if(Math.abs(velY)<MOVE_SPEED*0.1) velY=0;
+        if(Math.abs(velX)<MOVE_SPEED*0.1) velX=0;
+
+        //System.out.println("X: "+velX+",   Y: "+velY);
+
         x+=velX;
         y+=velY;
 
-        if(velX!=0) velX = (Math.abs(velX)-1) * velX/Math.abs(velX);
-        if(velY!=0) velY = (Math.abs(velY)-1) * velY/Math.abs(velY);
-        System.out.println("X: "+x+",   Y: "+y);
+        if(velX!=0) velX = (Math.abs(velX)-2) * velX/Math.abs(velX);
+        if(velY!=0) velY = (Math.abs(velY)-2) * velY/Math.abs(velY);
+        
     }
 
     @Override
