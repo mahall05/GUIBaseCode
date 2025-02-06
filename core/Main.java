@@ -1,3 +1,4 @@
+package core;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -5,46 +6,29 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+import input.Camera;
 import input.key.KeyInput;
 import input.mouse.MouseInput;
 
 public class Main extends Canvas implements Runnable {
 	
+	private static Main main; // Hold a static copy of main for bad programming
 	private static final long serialVersionUID = 1L;
 	
 	private boolean isRunning = false;
 	private Thread thread;
 	private Handler handler;
 	private Camera camera;
-	private SpriteSheet ss;
-	
-	private BufferedImage level = null;
-	private BufferedImage sprite_sheet =null;
-	private BufferedImage floor = null;
-	
-	public int ammo = 100;
-	public int hp = 100;
+	private Window window;
 
 	public Main() {
-		new Window(1000, 563, "Wizard Game", this);
+		window = new Window(1000, 563, "Test Window", this);
 		start();
 		
 		handler = new Handler();
 		camera = new Camera(0, 0);
-		this.addKeyListener(new KeyInput(handler));
 		
-		BufferedImageLoader loader = new BufferedImageLoader();
-		level = loader.loadImage("/wizard_level.png");
-		sprite_sheet = loader.loadImage("/wizard_sprite_sheet.png");
-		
-		ss = new SpriteSheet(sprite_sheet);
-		
-		floor = ss.grabImage(4, 2, 32, 32);
-		
-		this.addMouseListener(new MouseInput(handler, camera, this, ss));
-		
-		loadLevel(level);
-		
+		//BufferedImageLoader loader = new BufferedImageLoader();
 	}
 	
 	private void start() {
@@ -91,11 +75,13 @@ public class Main extends Canvas implements Runnable {
 	
 	public void tick() {     // Update all the things in the game
 		
+		/*
 		for(int i = 0; i < handler.object.size(); i++) {     // Loop through all objects
 			if(handler.object.get(i).getId() == ID.Player) {     // Find which object is the player
 				camera.tick(handler.object.get(i));     // Put that into the parameters of the camera
 			}
 		}
+		*/
 		
 		handler.tick();
 	}
@@ -113,16 +99,21 @@ public class Main extends Canvas implements Runnable {
 		
 		g2d.translate(-camera.getX(), -camera.getY());     // Everything in-between this...
 		
+		/*
 		for(int xx = 0; xx < 30*72; xx+=32) {
 			for(int yy = 0; yy < 30*72; yy+=32) {
 				g.drawImage(floor, xx, yy, null);
 			}
 		}
+		*/
 		
 		handler.render(g);
 		
 		g2d.translate(camera.getX(), camera.getY());     // ...and this is being translated
 		
+		g.setColor(Color.black);
+		g.fillRect(0, 0, window.getWidth(), window.getHeight());
+		/*
 		g.setColor(Color.gray);
 		g.fillRect(5, 5, 200, 32);
 		g.setColor(Color.green);
@@ -132,6 +123,7 @@ public class Main extends Canvas implements Runnable {
 		
 		g.setColor(Color.white);
 		g.drawString("Ammo: " + ammo, 5, 50);
+		*/
 		
 		
 		//////////////////////////////////////////////////
@@ -139,36 +131,21 @@ public class Main extends Canvas implements Runnable {
 		bs.show();
 	}
 	
-	//loading the level
-	private void loadLevel(BufferedImage image) {
-		int w = image.getWidth();
-		int h = image.getHeight();
-		
-		for(int xx = 0; xx < w; xx++) {
-			for(int yy = 0; yy < h; yy++) {
-				int pixel = image.getRGB(xx, yy);
-				int red = (pixel >> 16) & 0xff;
-				int green = (pixel >> 8) & 0xff;
-				int blue = (pixel) & 0xff;
-				
-				if(red == 255)
-					handler.addObject(new Block(xx*32, yy*32, ID.Block, ss));
-				
-				if(blue == 255 && green == 0)
-					handler.addObject(new Wizard(xx*32, yy*32, ID.Player, handler, this, ss));
-				
-				if(green == 255 && blue == 0)
-					handler.addObject(new Enemy(xx*32, yy*32, ID.Enemy, handler, ss));
-				
-				if(green == 255 && blue == 255) {
-					handler.addObject(new Crate(xx*32, yy*32, ID.Crate, ss));
-				}
-			}
-		}
-	}
 	
 	public static void main(String args[]) {
-		new Main();
+		main = new Main();
+	}
+
+	public static Main get(){
+		return main;
+	}
+
+	public Handler getHandler(){
+		return handler;
+	}
+
+	public Camera getCamera(){
+		return camera;
 	}
 
 	public static int randomInt(int minInclusive, int maxInclusive){

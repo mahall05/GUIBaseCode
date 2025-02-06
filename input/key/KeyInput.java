@@ -3,16 +3,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import Handler;
-
 public class KeyInput extends KeyAdapter {
 	
-	private Handler handler;
     private static ArrayList<KeyLink> keyChain = new ArrayList<KeyLink>();
 	
-	public KeyInput(Handler handler) {
-		this.handler = handler;
-		
+	public KeyInput() {
+	
 	}
 
     public void keyPressed(KeyEvent e){

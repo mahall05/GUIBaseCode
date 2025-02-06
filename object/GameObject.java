@@ -1,11 +1,16 @@
+package object;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import core.Main;
 
 public abstract class GameObject {
 	
 	protected int x, y;
 	protected float velX = 0, velY = 0;
     protected long id;
+	protected Bounds bounds;
+	protected boolean active;
 	
 	public GameObject(int x, int y) {
         this(x,y,Main.randomLong(0L, 9223372036854775807L));
@@ -19,7 +24,11 @@ public abstract class GameObject {
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
-	public abstract Rectangle getBounds();
+	public abstract void mouseClick(int mx, int my);
+
+	public Bounds getBounds(){
+		return bounds;
+	}
 	
 	public long getId() {
 		return id;
@@ -76,6 +85,10 @@ public abstract class GameObject {
 
     public float getVelY() {
 		return velY;
+	}
+
+	public boolean isActive(){
+		return active;
 	}
 	
 	

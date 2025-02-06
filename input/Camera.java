@@ -1,3 +1,5 @@
+package input;
+import object.GameObject;
 
 public class Camera {
 	

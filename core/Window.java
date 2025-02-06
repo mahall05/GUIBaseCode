@@ -1,3 +1,4 @@
+package core;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -8,10 +9,14 @@ import input.mouse.MouseInput;
 public class Window {
     private KeyInput keyListener;
     private MouseInput mouseListener;
+
+	private int width,height;
 	
 	public Window(int width, int height, String title, Main main) {
-        keyListener = new KeyInput(handler);
-        mouseListener = new MouseInput(handler);
+		this.width=width;
+		this.height=height;
+        keyListener = new KeyInput();
+        mouseListener = new MouseInput(main);
 		
 		JFrame frame = new JFrame(title);     // Creating new frame with the title in the parameters when this class is called
 		frame.setPreferredSize(new Dimension(width, height));
@@ -26,6 +31,13 @@ public class Window {
 		frame.setLocationRelativeTo(null);     // Box will start in the center
 		frame.setVisible(true);     // Showing the window
 		
+	}
+
+	public int getWidth(){
+		return width;
+	}
+	public int getHeight(){
+		return height;
 	}
 
 }
