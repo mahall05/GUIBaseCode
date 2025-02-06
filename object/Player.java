@@ -25,7 +25,7 @@ public class Player extends Brain{
 
     @Override
     public Point getMovement() {
-        return new Point(0+(up?5:0)-(down?5:0), 0+(right?5:0)-(left?5:0));
+        return new Point(0+(right?5:0)-(left?5:0), 0+(down?5:0)-(up?5:0));
     }
 
     

@@ -16,6 +16,12 @@ public class Body extends GameObject{
         velX+=brain.getMovement().getX();
         velY+=brain.getMovement().getY();
 
+        if(velY>10)velY=10;
+        if(velX>10)velX=10;
+
+        if(velY<-10)velY=-10;
+        if(velX<-10)velX=-10;
+
         x+=velX;
         y+=velY;
     }

@@ -9,9 +9,12 @@ public class MainContainer {
     public PopulationHandler population;
 
     public MainContainer(){
+        population=new PopulationHandler();
+
+
+        // Leave at the end
         registerKeys();
         registerMouseActions();
-        population=new PopulationHandler();
     }
 
     /**
