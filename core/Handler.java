@@ -26,9 +26,19 @@ public class Handler {
 	public void addObject(GameObject o) {
 		objects.add(o);
 	}
+	public void addObjects(ArrayList<GameObject> os){
+		for(GameObject o : os){
+			objects.add(o);
+		}
+	}
 	
 	public void removeObject(GameObject o) {
 		objects.remove(o);
+	}
+	public void removeObjects(ArrayList<GameObject> os){
+		for(GameObject o : os){
+			objects.remove(o);
+		}
 	}
 
 	public void mouseClick(int mx, int my){

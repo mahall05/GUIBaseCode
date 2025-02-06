@@ -20,15 +20,17 @@ public class Main extends Canvas implements Runnable {
 	private Handler handler;
 	private Camera camera;
 	private Window window;
+	private MainContainer container;
 
 	public Main() {
-		window = new Window(1000, 563, "Test Window", this);
-		start();
-		
+	}
+
+	public void setup(){
 		handler = new Handler();
 		camera = new Camera(0, 0);
-		
-		//BufferedImageLoader loader = new BufferedImageLoader();
+		container = new MainContainer();
+		window = new Window(1000, 563, "Test Window", this);
+		start();
 	}
 	
 	private void start() {
@@ -89,6 +91,9 @@ public class Main extends Canvas implements Runnable {
 		Graphics2D g2d = (Graphics2D) g;
 		//////////////////////////////////////////////////
 		
+		g.setColor(Color.black);
+		g.fillRect(0, 0, window.getWidth(), window.getHeight());
+
 		g2d.translate(-camera.getX(), -camera.getY());     // Everything in-between this...
 		
 		/*
@@ -103,8 +108,7 @@ public class Main extends Canvas implements Runnable {
 		
 		g2d.translate(camera.getX(), camera.getY());     // ...and this is being translated
 		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, window.getWidth(), window.getHeight());
+		
 		/*
 		g.setColor(Color.gray);
 		g.fillRect(5, 5, 200, 32);
@@ -126,6 +130,7 @@ public class Main extends Canvas implements Runnable {
 	
 	public static void main(String args[]) {
 		main = new Main();
+		main.setup();
 	}
 
 	public static Main get(){

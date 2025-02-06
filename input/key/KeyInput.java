@@ -15,15 +15,22 @@ public class KeyInput extends KeyAdapter {
         int key = e.getKeyCode();
 
         for(KeyLink link : keyChain){
-            if(key == link.getKey()) link.onPress();
+            if(key == link.getKey()){
+                link.onPress();
+                System.out.println("Key Pressed "+e.getKeyCode());
+            }
+            
         }
     }
 
     public void keyReleased(KeyEvent e){
         int key = e.getKeyCode();
 
-        for(KeyLink link : keyChain){
-            if(key == link.getKey()) link.onRelease();
+        for(KeyLink link : keyChain){{
+            if(key == link.getKey()) 
+                link.onRelease();
+                System.out.println("Key Released "+e.getKeyCode());
+            }
         }
     }
 

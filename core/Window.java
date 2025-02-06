@@ -24,8 +24,8 @@ public class Window {
 		frame.setMinimumSize(new Dimension(width, height));
 		
 		frame.add(main);     // Adding the main class to the actual window
-        frame.addKeyListener(keyListener);
-        frame.addMouseListener(mouseListener);
+        main.addKeyListener(keyListener);
+        main.addMouseListener(mouseListener);
 		frame.setResizable(false);     // Cannot resize window
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     // Allows the x button to work
 		frame.setLocationRelativeTo(null);     // Box will start in the center

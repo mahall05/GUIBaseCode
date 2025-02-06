@@ -9,7 +9,6 @@ public abstract class GameObject {
 	protected int x, y;
 	protected float velX = 0, velY = 0;
     protected long id;
-	protected Bounds bounds;
 	protected boolean active;
 	
 	public GameObject(int x, int y) {
@@ -25,10 +24,7 @@ public abstract class GameObject {
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract void mouseClick(int mx, int my);
-
-	public Bounds getBounds(){
-		return bounds;
-	}
+	public abstract Bounds getBounds();
 	
 	public long getId() {
 		return id;
@@ -45,19 +41,11 @@ public abstract class GameObject {
 	
 
 	public void setX(int x) {
-        if(x<0){
-            this.x=0;
-        }else{
 		    this.x = x;
-        }
 	}
 
 	public void setY(int y) {
-		if(y<0){
-            this.y = 0;
-        }else{
             this.y = y;
-        }
 	}
 
 
