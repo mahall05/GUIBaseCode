@@ -2,6 +2,9 @@ package object;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+
+import input.key.KeyInput;
 
 public class Player extends Brain{
     private boolean up=false,down=false,left=false,right=false;
@@ -66,6 +69,17 @@ public class Player extends Brain{
 
     private enum Direction{
         N,NE,E,SE,S,SW,W,NW,ZERO
+    }
+
+    public void render(Graphics g){
+
+    }
+
+    public void tick(){
+        up=KeyInput.keyChain.get(KeyEvent.VK_W);
+        down=KeyInput.keyChain.get(KeyEvent.VK_S);
+        right=KeyInput.keyChain.get(KeyEvent.VK_D);
+        left=KeyInput.keyChain.get(KeyEvent.VK_A);
     }
 
     

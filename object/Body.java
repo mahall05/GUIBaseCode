@@ -15,6 +15,7 @@ public class Body extends GameObject{
     
     @Override
     public void tick() {
+        brain.tick();
 
         int angle = brain.accelerate();
         //System.out.println("Angle: " + angle);
@@ -47,6 +48,7 @@ public class Body extends GameObject{
     public void render(Graphics g) {
         g.setColor(Color.GREEN);
         g.fillOval(x, y, 20, 20);
+        brain.render(g);
     }
 
     @Override
