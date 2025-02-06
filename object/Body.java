@@ -13,8 +13,8 @@ public class Body extends GameObject{
     
     @Override
     public void tick() {
-        velX+=brain.getMovement().getX();
-        velY+=brain.getMovement().getY();
+        velX+=brain.accelerate().getX();
+        velY+=brain.accelerate().getY();
 
         if(velY>10)velY=10;
         if(velX>10)velX=10;
@@ -24,6 +24,10 @@ public class Body extends GameObject{
 
         x+=velX;
         y+=velY;
+
+        if(velX!=0) velX = (Math.abs(velX)-1) * velX/Math.abs(velX);
+        if(velY!=0) velY = (Math.abs(velY)-1) * velY/Math.abs(velY);
+        System.out.println("X: "+velX+",   Y: "+velY);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class KeyInput extends KeyAdapter {
         for(KeyLink link : keyChain){
             if(key == link.getKey()){
                 link.onPress().run();
-                System.out.println("Key Pressed "+e.getKeyCode());
+                //System.out.println("Key Pressed "+e.getKeyCode());
             }
             
         }
@@ -29,7 +29,7 @@ public class KeyInput extends KeyAdapter {
         for(KeyLink link : keyChain){{
             if(key == link.getKey()) 
                 link.onRelease().run();
-                System.out.println("Key Released "+e.getKeyCode());
+                //System.out.println("Key Released "+e.getKeyCode());
             }
         }
     }
