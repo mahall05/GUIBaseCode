@@ -6,6 +6,8 @@ import java.awt.Graphics;
 public class Body extends GameObject{
     private Brain brain;
 
+    private static final int MOVE_SPEED = 3;
+
     public Body(int x, int y, Brain brain) {
         super(x, y);
         this.brain=brain;
@@ -13,8 +15,13 @@ public class Body extends GameObject{
     
     @Override
     public void tick() {
-        velX+=brain.accelerate().getX();
-        velY+=brain.accelerate().getY();
+
+        int angle = brain.accelerate();
+
+        if(angle!=999){
+            velX+= MOVE_SPEED * Math.cos(angle*Math.PI/180);
+            velY+= MOVE_SPEED * -Math.sin(angle*Math.PI/180);
+        }
 
         if(velY>10)velY=10;
         if(velX>10)velX=10;

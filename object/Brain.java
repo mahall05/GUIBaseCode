@@ -7,5 +7,5 @@ public abstract class Brain {
 
     }
 
-    public abstract Point accelerate();
+    public abstract int accelerate();
 }

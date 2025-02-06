@@ -6,8 +6,6 @@ import java.awt.Point;
 public class Player extends Brain{
     private boolean up=false,down=false,left=false,right=false;
 
-    private static final int MOVE_SPEED = 3;
-
     public void moveUp(boolean moving){
         //System.out.println("Moving Right");
         up=moving;
@@ -26,7 +24,7 @@ public class Player extends Brain{
     }
 
     @Override
-    public Point accelerate() {
+    public int accelerate() {
         if(right&left){
             right=false;
             left=false;
@@ -36,35 +34,34 @@ public class Player extends Brain{
             down=false;
         }
 
-        Direction d;
+        int angle;
 
         if(up){
             if(right){
-                d=Direction.NE;
+                angle=45;
             }
             else if(left){
-                d=Direction.NW;
+                angle=135;
             }else{
-                d=Direction.N;
+                angle=90;
             }
         }else if(down){
             if(right){
-                d=Direction.SE;
+                angle=315;
             }else if(left){
-                d=Direction.SW;
+                angle=225;
             }else{
-                d=Direction.S;
+                angle=270;
             }
         }else if(right){
-            d=Direction.E;
+            angle=0;
         }else if(left){
-            d=Direction.W;
+            angle=180;
         }else{
-            d=Direction.ZERO;
+            angle=999;
         }
-        int x = (right&left) ? 0 : (right&!left) ? MOVE_SPEED : (left&!right) ? -MOVE_SPEED : 0;
-        int y = (up&down) ? 0 : (down&!up) ? MOVE_SPEED : (up&!down) ? -MOVE_SPEED : 0;
-        return new Point(x,y);
+
+        return angle;
     }
 
     private enum Direction{
