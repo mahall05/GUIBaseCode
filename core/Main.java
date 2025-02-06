@@ -74,16 +74,8 @@ public class Main extends Canvas implements Runnable {
 	}
 	
 	public void tick() {     // Update all the things in the game
-		
-		/*
-		for(int i = 0; i < handler.object.size(); i++) {     // Loop through all objects
-			if(handler.object.get(i).getId() == ID.Player) {     // Find which object is the player
-				camera.tick(handler.object.get(i));     // Put that into the parameters of the camera
-			}
-		}
-		*/
-		
 		handler.tick();
+		camera.tick();
 	}
 	
 	public void render() {     // Render all the graphics
