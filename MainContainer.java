@@ -11,6 +11,10 @@ public class MainContainer {
         KeyInput.register(KeyEvent.VK_P, this::test, this::test);
     }
 
+    public void registerMouseActions(){
+
+    }
+
     private void test(){
 
     }

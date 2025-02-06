@@ -171,6 +171,24 @@ public class Main extends Canvas implements Runnable {
 		new Main();
 	}
 
+	public static int randomInt(int minInclusive, int maxInclusive){
+        int range = maxInclusive - minInclusive + 1;
+        int rng = (int)(Math.random() * range) + minInclusive;
+        return rng;
+    }
+
+    public static double randomDouble(double minInclusive, double maxInclusive){
+        double range = maxInclusive - minInclusive + 1;
+        double rng = (Math.random() * range) + minInclusive;
+        return rng;
+    }
+
+	public static long randomLong(long minInclusive, long maxInclusive){
+		long range = maxInclusive - minInclusive + 1;
+		long rng = (long)(Math.random() * range) + minInclusive;
+		return rng;
+	}
+
 	
 
 }

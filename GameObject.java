@@ -5,59 +5,77 @@ public abstract class GameObject {
 	
 	protected int x, y;
 	protected float velX = 0, velY = 0;
-	protected ID id;
-	protected SpriteSheet ss;
+    protected long id;
 	
-	public GameObject(int x, int y, ID id, SpriteSheet ss) {
-		this.x = x;
-		this.y = y;
-		this.id = id;
-		this.ss = ss;
+	public GameObject(int x, int y) {
+        this(x,y,Main.randomLong(0L, 9223372036854775807L));
 	}
+    public GameObject(int x, int y, long id){
+        setX(x);
+        setY(y);
+        setId(id);
+    }
 
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
 	
-	public ID getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(ID id) {
-		this.id = id;
+	public void setId(long id) {
+        if(id<0L){
+            this.id = 0L;
+        }else{
+		    this.id = id;
+        }
 	}
 
-	public int getX() {
-		return x;
-	}
+	
 
 	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
+        if(x<0){
+            this.x=0;
+        }else{
+		    this.x = x;
+        }
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		if(y<0){
+            this.y = 0;
+        }else{
+            this.y = y;
+        }
 	}
 
-	public float getVelX() {
-		return velX;
-	}
 
 	public void setVelX(float velX) {
 		this.velX = velX;
 	}
 
-	public float getVelY() {
-		return velY;
-	}
-
 	public void setVelY(float velY) {
 		this.velY = velY;
+	}
+
+
+    public int getX() {
+		return x;
+	}
+
+    public int getY() {
+		return y;
+	}
+
+
+    public float getVelX() {
+		return velX;
+	}
+
+    public float getVelY() {
+		return velY;
 	}
 	
 	
