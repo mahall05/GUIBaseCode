@@ -1,15 +1,18 @@
 package core;
 import input.key.KeyInput;
-import object.PopulationHandler;
+import object.body.PopulationHandler;
+import object.map.MapHandler;
 
 import java.awt.event.KeyEvent;
 
 public class MainContainer {
 
     public PopulationHandler population;
+    public MapHandler map;
 
     public MainContainer(){
-        population=new PopulationHandler();
+        map = new MapHandler();
+        population=new PopulationHandler(map);
 
 
         // Leave at the end

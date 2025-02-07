@@ -1,23 +1,28 @@
-package object;
+package object.body;
 
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
 import core.Handler;
+import object.Bounds;
+import object.GameObject;
+import object.map.MapHandler;
 
 public class Generation extends GameObject{
+    private MapHandler map;
     private ArrayList<Body> bodies = new ArrayList<Body>();
 
     private final int BRAIN_SIZE = 500;
 
-    public Generation(Point spawnPoint, int size){
+    public Generation(Point spawnPoint, int size, MapHandler map){
         super(0,0);
         boundsMatter=false;
         mouseClickRegister=false;
+        this.map=map;
 
         for(int i = 0; i < size; i++){
-            bodies.add(new Body(spawnPoint, new NPC(BRAIN_SIZE)));
+            bodies.add(new Body(spawnPoint, new NPC(BRAIN_SIZE), map));
         }
     }
 

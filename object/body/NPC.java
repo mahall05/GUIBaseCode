@@ -1,4 +1,4 @@
-package object;
+package object.body;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -9,6 +9,7 @@ public class NPC extends Brain{
     private int step = 0;
     private Point[] steps;
     private boolean alive;
+    private boolean winner;
 
     public NPC(int brainSize){
         steps = new Point[brainSize];
@@ -21,7 +22,7 @@ public class NPC extends Brain{
 
     @Override
     public Point accelerate() {
-        return alive ? steps[step] : new Point(0,999);
+        return (alive) ? steps[step] : new Point(0,999);
     }
 
     @Override
@@ -36,12 +37,22 @@ public class NPC extends Brain{
 
     @Override
     public void render(Graphics g) {
-        
+
     }
 
     @Override
     public boolean isAlive() {
         return alive;
+    }
+
+    @Override
+    public void kill(){
+        alive=false;
+    }
+
+    @Override
+    public void win(){
+        winner=true;
     }
     
 }

@@ -1,22 +1,28 @@
-package object;
+package object.body;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+import object.Bounds;
+import object.GameObject;
+import object.map.MapHandler;
+
 public class Body extends GameObject{
     private Brain brain;
+    private MapHandler map;
 
     public static final int MAX_SPEED = 5;
     public final int SIZE = 10;
     private final int FRICTION = 2;
 
-    public Body(int x, int y, Brain brain) {
+    public Body(int x, int y, Brain brain, MapHandler map) {
         super(x, y);
         this.brain=brain;
+        this.map=map;
     }
-    public Body(Point p, Brain brain){
-        this((int) p.getX(), (int) p.getY(), brain);
+    public Body(Point p, Brain brain, MapHandler map){
+        this((int) p.getX(), (int) p.getY(), brain, map);
     }
     
     @Override
@@ -59,6 +65,17 @@ public class Body extends GameObject{
         }
         
         brain.tick();
+
+        boolean goalCollision = map.checkGoalCollision(this.getBounds());
+        boolean obstacleCollision = map.checkObstacleCollision(this.getBounds());
+
+        if(goalCollision){
+            brain.win();
+            brain.kill();
+        }
+        else if(obstacleCollision){
+            brain.kill();
+        }
     }
 
     @Override

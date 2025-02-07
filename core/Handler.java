@@ -48,7 +48,7 @@ public class Handler {
 
 	public void mouseClick(int mx, int my){
 		for(GameObject o : objects){
-			if(o.getBounds().isWithin(mx,my) && o.isActive()) o.mouseClick(mx, my);
+			if(o.boundsMatter && o.mouseClickRegister && o.getBounds().isWithin(mx,my) && o.isActive()) o.mouseClick(mx, my);
 		}
 	}
 

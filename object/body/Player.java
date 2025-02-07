@@ -1,4 +1,4 @@
-package object;
+package object.body;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -84,6 +84,14 @@ public class Player extends Brain{
     @Override
     public boolean isAlive() {
         return true;
+    }
+    @Override
+    public void kill() {
+
+    }
+    @Override
+    public void win() {
+
     }
 
     
