@@ -1,6 +1,7 @@
 package core;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 
 import object.GameObject;
@@ -11,14 +12,18 @@ public class Handler {
 	
 
 	public void tick() {
-        for(GameObject o : objects){
-            o.tick();
-        }
+		try{
+			for(GameObject o : objects){
+				if(/*o.isActive()&&*/o.tick) o.tick();
+			}
+		}catch(ConcurrentModificationException e){
+			System.out.println("WARNING: tick lost due to game object removal");
+		}
 	}
 	
 	public void render(Graphics g) {
         for(GameObject o : objects){
-            o.render(g);
+            if(/*o.isActive()&&*/o.render) o.render(g);
         }
 	}
 

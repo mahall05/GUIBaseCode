@@ -11,4 +11,5 @@ public abstract class Brain {
     public abstract Point accelerate();
     public abstract void tick();
     public abstract void render(Graphics g);
+    public abstract boolean isAlive();
 }

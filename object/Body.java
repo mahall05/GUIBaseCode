@@ -9,6 +9,7 @@ public class Body extends GameObject{
 
     public static final int MAX_SPEED = 5;
     public final int SIZE = 10;
+    private final int FRICTION = 2;
 
     public Body(int x, int y, Brain brain) {
         super(x, y);
@@ -20,8 +21,6 @@ public class Body extends GameObject{
     
     @Override
     public void tick() {
-        brain.tick();
-
         Point polarCoord = brain.accelerate();
         //System.out.println("Angle: " + angle);
 
@@ -36,17 +35,30 @@ public class Body extends GameObject{
         if(velY<-10)velY=-10;
         if(velX<-10)velX=-10;
 
-        if(Math.abs(velY)<MAX_SPEED*0.1) velY=0;
-        if(Math.abs(velX)<MAX_SPEED*0.1) velX=0;
+        if(Math.abs(velY)<MAX_SPEED*0.01) velY=0;
+        if(Math.abs(velX)<MAX_SPEED*0.01) velX=0;
 
         //System.out.println("X: "+velX+",   Y: "+velY);
 
         x+=velX;
         y+=velY;
 
-        if(velX!=0) velX = (Math.abs(velX)-2) * velX/Math.abs(velX);
-        if(velY!=0) velY = (Math.abs(velY)-2) * velY/Math.abs(velY);
+        if(velX!=0){
+            if(Math.abs(velX)<FRICTION){
+                velX=0;
+            }else{
+                velX = (Math.abs(velX)-FRICTION) * velX/Math.abs(velX);
+            }
+        } 
+        if(velY!=0){
+            if(Math.abs(velY)<FRICTION){
+                velY=0;
+            }else{
+                velY = (Math.abs(velY)-FRICTION) * velY/Math.abs(velY);
+            }
+        }
         
+        brain.tick();
     }
 
     @Override
@@ -68,6 +80,10 @@ public class Body extends GameObject{
 
     public Brain getBrain(){
         return brain;
+    }
+
+    public boolean isAlive(){
+        return brain.isAlive();
     }
     
 }

@@ -10,6 +10,11 @@ public abstract class GameObject {
 	protected float velX = 0, velY = 0;
     protected long id;
 	protected boolean active;
+
+	public boolean tick=true;
+	public boolean render=true;
+	public boolean mouseClickRegister=true;
+	public boolean boundsMatter=true;
 	
 	public GameObject(int x, int y) {
         this(x,y,Main.randomLong(0L, 9223372036854775807L));
@@ -18,6 +23,7 @@ public abstract class GameObject {
         setX(x);
         setY(y);
         setId(id);
+		//active=false;
     }
 
 	

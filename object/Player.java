@@ -81,6 +81,10 @@ public class Player extends Brain{
         right=KeyInput.keyChain.get(KeyEvent.VK_D);
         left=KeyInput.keyChain.get(KeyEvent.VK_A);
     }
+    @Override
+    public boolean isAlive() {
+        return true;
+    }
 
     
 }

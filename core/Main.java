@@ -22,7 +22,7 @@ public class Main extends Canvas implements Runnable {
 	private Window window;
 	private MainContainer container;
 
-	public static final int HEIGHT=600, WIDTH=HEIGHT*16/9;
+	public static final int HEIGHT= 700, WIDTH=800;
 
 	public Main() {
 	}
