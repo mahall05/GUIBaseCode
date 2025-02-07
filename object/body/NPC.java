@@ -8,8 +8,8 @@ import core.Main;
 public class NPC extends Brain{
     private int step = 0;
     private Point[] steps;
-    private boolean alive;
-    private boolean winner;
+    //private boolean alive;
+    //private boolean winner;
 
     public NPC(int brainSize){
         steps = new Point[brainSize];
@@ -29,7 +29,7 @@ public class NPC extends Brain{
     public void tick() {
         if(alive){
             step++;
-            if(step>=steps.length){ // TODO OR check bounds for death
+            if(step>=steps.length){
                 alive=false;
             }
         }
@@ -43,16 +43,6 @@ public class NPC extends Brain{
     @Override
     public boolean isAlive() {
         return alive;
-    }
-
-    @Override
-    public void kill(){
-        alive=false;
-    }
-
-    @Override
-    public void win(){
-        winner=true;
     }
     
 }

@@ -64,7 +64,7 @@ public class Player extends Brain{
             angle=999;
         }
 
-        return new Point(Body.MAX_SPEED, angle);
+        return alive ? new Point(Body.MAX_SPEED, angle) : new Point(0, 999);
     }
 
     private enum Direction{
@@ -83,16 +83,6 @@ public class Player extends Brain{
     }
     @Override
     public boolean isAlive() {
-        return true;
+        return alive;
     }
-    @Override
-    public void kill() {
-
-    }
-    @Override
-    public void win() {
-
-    }
-
-    
 }

@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public abstract class Brain {
+    protected boolean winner = false;
+    protected boolean alive = true;
     public Brain() {
 
     }
@@ -13,6 +15,10 @@ public abstract class Brain {
     public abstract void render(Graphics g);
     public abstract boolean isAlive();
 
-    public abstract void kill();
-    public abstract void win();
+    public void kill(){
+        alive=false;
+    }
+    public void win(){
+        winner=true;
+    }
 }
