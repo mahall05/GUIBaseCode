@@ -12,17 +12,31 @@ import object.map.MapHandler;
 public class Generation extends GameObject{
     private MapHandler map;
     private ArrayList<Body> bodies = new ArrayList<Body>();
+    private int size;
 
     private final int BRAIN_SIZE = 500;
+    private final double MUT_RATE = 0.0;
 
     public Generation(Point spawnPoint, int size, MapHandler map){
         super(0,0);
         boundsMatter=false;
         mouseClickRegister=false;
         this.map=map;
+        this.size=size;
 
         for(int i = 0; i < size; i++){
             bodies.add(new Body(spawnPoint, new NPC(BRAIN_SIZE), map));
+        }
+    }
+    public Generation(Point spawnPoint, Brain[] brains, MapHandler map){
+        super(0,0);
+        boundsMatter=false;
+        mouseClickRegister=false;
+        this.map=map;
+        this.size=brains.length;
+
+        for(int i = 0; i < size; i++){
+            bodies.add(new Body(spawnPoint, new NPC(brains[i]), map));
         }
     }
 
@@ -33,6 +47,26 @@ public class Generation extends GameObject{
             }
         }
         return true;
+    }
+
+    /**
+     * Calc fitness for all bodies
+     * @return An array of the brains to make life easier
+     */
+    public Brain[] calcFitness(){
+        Brain[] brains = new Brain[size];
+        for(int i = 0; i < size; i++){
+            Brain b = bodies.get(i).getBrain();
+            b.calcFitness();
+            brains[i] = b;
+        }
+        return brains;
+    }
+
+    public void mutate(){
+        for(Body b : bodies){
+            b.getBrain().mutate(MUT_RATE);
+        }
     }
 
     @Override
@@ -51,13 +85,10 @@ public class Generation extends GameObject{
 
     @Override
     public void mouseClick(int mx, int my) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseClick'");
     }
 
     @Override
     public Bounds getBounds() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBounds'");
+        return new Bounds(0,0,0,0);
     }
 }

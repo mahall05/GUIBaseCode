@@ -48,5 +48,12 @@ public class MapObject extends GameObject{
     public Bounds getBounds() {
         return new Bounds(x,y,width,height);
     }
+
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
+    }
     
 }

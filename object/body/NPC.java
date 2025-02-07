@@ -19,10 +19,22 @@ public class NPC extends Brain{
             steps[i] = new Point(Main.randomInt(0, Body.MAX_SPEED), Main.randomInt(0, 360));
         }
     }
+    public NPC(Brain b){
+        steps = new Point[((NPC) b).getSteps().length];
+        alive=true;
+
+        for(int i = 0; i < steps.length; i++){
+            steps[i] = ((NPC) b).getSteps()[i];
+        }
+    }
 
     @Override
     public Point accelerate() {
         return (alive) ? steps[step] : new Point(0,999);
+    }
+
+    public Point[] getSteps(){
+        return steps;
     }
 
     @Override
@@ -43,6 +55,22 @@ public class NPC extends Brain{
     @Override
     public boolean isAlive() {
         return alive;
+    }
+    @Override
+    public double calcFitness() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'calcFitness'");
+    }
+    @Override
+    public void mutate(double rate) {
+        for(int i = 0; i < steps.length; i++){
+            double rand = Main.randomDouble(0, 1.0);
+
+            if(rand<rate){
+                steps[i] = new Point(Main.randomInt(0, Body.MAX_SPEED), Main.randomInt(0, 360));
+            }
+
+        }
     }
     
 }

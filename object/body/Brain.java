@@ -6,7 +6,11 @@ import java.awt.Point;
 public abstract class Brain {
     protected boolean winner = false;
     protected boolean alive = true;
+    protected double fitness;
     public Brain() {
+
+    }
+    public Brain(Brain b){
 
     }
 
@@ -14,11 +18,16 @@ public abstract class Brain {
     public abstract void tick();
     public abstract void render(Graphics g);
     public abstract boolean isAlive();
+    public abstract double calcFitness();
+    public abstract void mutate(double rate);
 
     public void kill(){
         alive=false;
     }
     public void win(){
         winner=true;
+    }
+    public double getFitness(){
+        return fitness;
     }
 }

@@ -85,4 +85,14 @@ public class Player extends Brain{
     public boolean isAlive() {
         return alive;
     }
+    @Override
+    public double calcFitness() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'calcFitness'");
+    }
+    @Override
+    public void mutate(double rate) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mutate'");
+    }
 }

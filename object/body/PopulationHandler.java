@@ -11,7 +11,7 @@ import object.map.MapHandler;
 
 public class PopulationHandler extends GameObject{
 
-    private final boolean INCLUDE_PLAYER = true;
+    private final boolean INCLUDE_PLAYER = false;
     private Body playerBody;
 
     private final int POPULATION_SIZE = 100;
@@ -48,11 +48,39 @@ public class PopulationHandler extends GameObject{
     @Override
     public void tick() {
         if(gen.allDead()){
-            lastGen=gen;
-            gen=new Generation(spawnPoint, POPULATION_SIZE, map);
+
+            createNextGen();
+
         }else{
             gen.tick();
         }
+    }
+
+    private void createNextGen(){
+        lastGen=gen;
+        Brain[] lastBrains = lastGen.calcFitness();
+        int fitnessSum = 0;
+        for(Brain b : lastBrains){
+            fitnessSum+=b.getFitness();
+        }
+
+        Brain[] newBrains = new Brain[POPULATION_SIZE];
+        for(int i = 0; i < newBrains.length; i++){
+            double randNum = Main.randomDouble(0, fitnessSum);
+            double runningSum = 0;
+
+            for(int j = 0; j < lastBrains.length; j++){
+                runningSum += lastBrains[j].getFitness();
+                if(randNum < runningSum){
+                    newBrains[i] = new NPC(lastBrains[j]);
+                    break;
+                }
+            }
+        }
+
+        gen = new Generation(spawnPoint, newBrains, map);
+        
+        gen.mutate();
     }
 
     @Override
