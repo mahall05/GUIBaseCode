@@ -20,10 +20,9 @@ public class PopulationHandler extends GameObject{
 
     public PopulationHandler(){
         super(0,0);
-        render=false;
         boundsMatter=false;
         mouseClickRegister=false;
-        
+
         Main.get().getHandler().addObject(this);
 
         if(INCLUDE_PLAYER){
@@ -32,7 +31,7 @@ public class PopulationHandler extends GameObject{
             Main.get().getHandler().addObject(playerBody);
         }
         
-        gen = new Generation(spawnPoint, POPULATION_SIZE, Main.get().getHandler());
+        gen = new Generation(spawnPoint, POPULATION_SIZE);
 
     }
 
@@ -44,15 +43,15 @@ public class PopulationHandler extends GameObject{
     public void tick() {
         if(gen.allDead()){
             lastGen=gen;
-            lastGen.cleanBodies();
-            gen=new Generation(spawnPoint, POPULATION_SIZE, Main.get().getHandler());
+            gen=new Generation(spawnPoint, POPULATION_SIZE);
+        }else{
+            gen.tick();
         }
     }
 
     @Override
     public void render(Graphics g) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
+        gen.render(g);
     }
 
     @Override
