@@ -14,7 +14,7 @@ public class PopulationHandler extends GameObject{
     private final boolean INCLUDE_PLAYER = true;
     private Body playerBody;
 
-    private final int POPULATION_SIZE = 5;
+    private final int POPULATION_SIZE = 100;
     private Generation gen;
     private Generation lastGen;
 
