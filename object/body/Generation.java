@@ -53,20 +53,6 @@ public class Generation extends GameObject{
         return true;
     }
 
-    /**
-     * Calc fitness for all bodies
-     * @return An array of the brains to make life easier
-     */
-    public Brain[] calcFitness(){
-        Brain[] brains = new Brain[size];
-        for(int i = 0; i < size; i++){
-            Brain b = bodies.get(i).getBrain();
-            b.calcFitness();
-            brains[i] = b;
-        }
-        return brains;
-    }
-
     public void mutate(){
         for(int i = 1; i < bodies.size(); i++){
             bodies.get(i).getBrain().mutate(MUT_RATE);
@@ -86,9 +72,9 @@ public class Generation extends GameObject{
         double maxFitness = Double.MIN_VALUE;
         int maxIndex = -1;
         for(int i = 0; i < bodies.size(); i++){
-            if(bodies.get(i).getBrain().calcFitness() > maxFitness){
+            if(bodies.get(i).getBrain().calculateFitness() > maxFitness){
                 maxIndex=i;
-                maxFitness=bodies.get(i).getBrain().calcFitness();
+                maxFitness=bodies.get(i).getBrain().calculateFitness();
             }
         }
         bestBoy = bodies.get(maxIndex);
@@ -113,5 +99,12 @@ public class Generation extends GameObject{
 
     public ArrayList<Body> getBodies(){
         return bodies;
+    }
+    public Brain[] getBrains(){
+        Brain[] brains = new Brain[size];
+        for(int i = 0; i < brains.length; i++){
+            brains[i] = bodies.get(i).getBrain();
+        }
+        return brains;
     }
 }

@@ -100,7 +100,7 @@ public class Player extends Brain{
         return alive;
     }
     @Override
-    public double calcFitness() {
+    public double calculateFitness() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'calcFitness'");
     }

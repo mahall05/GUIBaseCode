@@ -14,7 +14,7 @@ public class PopulationHandler extends GameObject{
     private final boolean INCLUDE_PLAYER = false;
     private Body playerBody;
 
-    private final int POPULATION_SIZE = 20000;
+    private final int POPULATION_SIZE = 10000;
     private Generation gen;
     private Generation lastGen;
 
@@ -64,24 +64,20 @@ public class PopulationHandler extends GameObject{
 
     private void createNextGen(){
         lastGen=gen;
-        Brain[] lastBrains = lastGen.calcFitness();
+        Brain[] lastBrains = lastGen.getBrains();
         double fitnessSum = 0;
         for(Brain b : lastBrains){
-            fitnessSum+=b.getFitness();
+            fitnessSum+=b.getFitness()[((NPC) b).getSteps().length-1];
         }
 
         Brain[] newBrains = new Brain[POPULATION_SIZE];
 
         double maxFitness=Double.MIN_NORMAL;
-        int maxI=-1;
-        int maxJ=-1;
-        for(int i = 0; i < lastBrains.length; i++){
-            for(int j = 0; j < ((NPC) lastBrains[i]).)
-        }
+        int maxIndex = -1;
 
         for(int i = 0; i < lastBrains.length; i++){
-            if(lastBrains[i].getFitness() > maxFitness){
-                maxFitness=lastBrains[i].getFitness();
+            if(lastBrains[i].getFitness()[((NPC) lastBrains[i]).getSteps().length-1] > maxFitness){
+                maxFitness=lastBrains[i].getFitness()[((NPC) lastBrains[i]).getSteps().length-1];
                 maxIndex=i;
             }
         }
@@ -94,7 +90,7 @@ public class PopulationHandler extends GameObject{
             double runningSum = 0;
 
             for(int j = 0; j < lastBrains.length; j++){
-                runningSum += lastBrains[j].getFitness();
+                runningSum += lastBrains[j].getFitness()[((NPC) lastBrains[j]).getSteps().length-1];
                 if(randNum < runningSum){
                     newBrains[i] = lastBrains[j];
                     break;
