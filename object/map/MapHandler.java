@@ -11,6 +11,10 @@ public class MapHandler extends GameObject{
     private MapObject[] obstacles;
     private MapObject[] goals;
 
+    private double maxDistance;
+
+    public Point[] mapCorners;
+
     public MapHandler(){
         super(0,0);
         tick=false;
@@ -21,6 +25,15 @@ public class MapHandler extends GameObject{
 
         goals = new MapObject[] {new MapObject(Main.WIDTH/2-25, 0, 50, 50, MapObject.Type.GOAL)};
         obstacles = new MapObject[] {new MapObject(Main.WIDTH/2-200, Main.HEIGHT/2-25, 400, 50, MapObject.Type.OBSTACLE)};
+
+        mapCorners = new Point[] {
+            new Point(0,0),
+            new Point(Main.WIDTH, 0),
+            new Point(0, Main.HEIGHT),
+            new Point(Main.WIDTH, Main.HEIGHT)
+        };
+
+        maxDistance = maxFitness();
     }
 
     public boolean checkGoalCollision(Bounds b){
@@ -34,6 +47,15 @@ public class MapHandler extends GameObject{
     public boolean checkObstacleCollision(Bounds b){
         for(MapObject obstacle : obstacles){
             if(obstacle.getBounds().checkCollision(b)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkOutOfBounds(Bounds b){
+        Point[] corners = b.getCorners();
+        for(Point p : corners){
+            if(p.getX() < 0 || p.getX()>Main.WIDTH || p.getY()<0 || p.getY()>Main.HEIGHT){
                 return true;
             }
         }
@@ -69,20 +91,37 @@ public class MapHandler extends GameObject{
     }
 
     public double maxFitness(){
+        double maxDistance = Double.MIN_VALUE;
         for(int i = 0; i < goals.length; i++){
-            Point center = new Point((int)((goals[i].getX()+goals[i].getWidth())/2), (int)((goals[i].getY()+goals[i].getHeight())/2));
-
-            // Calculate the maximum possible distance you could be from the goal so you can subtract from this to calculate an inverse fitness
-            Math.max(
+            maxDistance = Math.max(maxDistance,
                 Math.max(
-                    Math.sqrt(Math.pow(center.getX() - 0, 2) + Math.pow(center.getY() - 0, 2)), 
-                    Math.sqrt(Math.pow(center.getX() - Main.WIDTH, 2) + Math.pow(center.getY() - 0, 2))), 
-                Math.max(
-                    Math.sqrt(Math.pow(center.getX() - 0, 2) + Math.pow(center.getY() - Main.HEIGHT, 2)), 
-                    Math.sqrt(Math.pow(center.getX() - Main.WIDTH, 2) + Math.pow(center.getY() - Main.HEIGHT, 2))
+                    Math.max(
+                        goals[i].getBounds().getCenter().distance(mapCorners[0]),
+                        goals[i].getBounds().getCenter().distance(mapCorners[1])
+                    ),
+                    Math.max(
+                        goals[i].getBounds().getCenter().distance(mapCorners[2]),
+                        goals[i].getBounds().getCenter().distance(mapCorners[3])
                     )
-                    );
+                )
+            );
         }
+
+        return maxDistance;
+    }
+
+    public double distNearestGoal(Bounds b){
+        double minDistance = Double.MAX_VALUE;
+        for(int i = 0; i < goals.length; i++){
+            minDistance = Math.min(minDistance, goals[i].getBounds().getCenter().distance(b.getCenter()));
+            
+        }
+
+        return minDistance;
+    }
+
+    public double getMaxDistance(){
+        return maxDistance;
     }
     
 }

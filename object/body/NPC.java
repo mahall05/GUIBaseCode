@@ -10,10 +10,12 @@ public class NPC extends Brain{
     private Point[] steps;
     //private boolean alive;
     //private boolean winner;
+    private boolean endOfLife;
 
     public NPC(int brainSize){
         steps = new Point[brainSize];
         alive=true;
+        endOfLife=false;
 
         for(int i = 0; i < brainSize; i++){
             steps[i] = new Point(Main.randomInt(0, Body.MAX_SPEED), Main.randomInt(0, 360));
@@ -43,6 +45,7 @@ public class NPC extends Brain{
             step++;
             if(step>=steps.length){
                 alive=false;
+                endOfLife=true;
             }
         }
     }
@@ -58,8 +61,9 @@ public class NPC extends Brain{
     }
     @Override
     public double calcFitness() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calcFitness'");
+        this.fitness = Math.pow(body.getMap().getMaxDistance()-body.distNearestGoal(), 5);
+        fitness *= (!alive && !endOfLife) ? 0 : 1.0;
+        return fitness;
     }
     @Override
     public void mutate(double rate) {

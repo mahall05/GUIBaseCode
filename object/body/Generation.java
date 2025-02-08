@@ -14,8 +14,8 @@ public class Generation extends GameObject{
     private ArrayList<Body> bodies = new ArrayList<Body>();
     private int size;
 
-    private final int BRAIN_SIZE = 500;
-    private final double MUT_RATE = 0.0;
+    private final int BRAIN_SIZE = 1000;
+    private final double MUT_RATE = 0.02;
 
     public Generation(Point spawnPoint, int size, MapHandler map){
         super(0,0);

@@ -28,4 +28,16 @@ public class Bounds extends Rectangle{
             return false;
         }
     }
+
+    public Point getCenter(){
+        return new Point((int)(this.getX()+this.getWidth()/2), (int)((this.getY()+this.getHeight())/2));
+    }
+    public Point[] getCorners(){
+        return new Point[] {
+            new Point(x,y),
+            new Point(x+width, y),
+            new Point(x,y+height),
+            new Point(x+width, y+height)
+        };
+    }
 }

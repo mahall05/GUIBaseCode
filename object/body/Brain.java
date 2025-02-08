@@ -7,6 +7,7 @@ public abstract class Brain {
     protected boolean winner = false;
     protected boolean alive = true;
     protected double fitness;
+    protected Body body;
     public Brain() {
 
     }
@@ -29,5 +30,8 @@ public abstract class Brain {
     }
     public double getFitness(){
         return fitness;
+    }
+    public void setBody(Body b){
+        this.body=b;
     }
 }

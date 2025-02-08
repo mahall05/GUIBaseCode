@@ -59,7 +59,7 @@ public class PopulationHandler extends GameObject{
     private void createNextGen(){
         lastGen=gen;
         Brain[] lastBrains = lastGen.calcFitness();
-        int fitnessSum = 0;
+        double fitnessSum = 0;
         for(Brain b : lastBrains){
             fitnessSum+=b.getFitness();
         }

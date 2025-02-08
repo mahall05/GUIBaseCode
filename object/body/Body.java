@@ -20,6 +20,7 @@ public class Body extends GameObject{
         super(x, y);
         this.brain=brain;
         this.map=map;
+        brain.setBody(this);
     }
     public Body(Point p, Brain brain, MapHandler map){
         this((int) p.getX(), (int) p.getY(), brain, map);
@@ -67,7 +68,7 @@ public class Body extends GameObject{
         brain.tick();
 
         boolean goalCollision = map.checkGoalCollision(this.getBounds());
-        boolean obstacleCollision = map.checkObstacleCollision(this.getBounds());
+        boolean obstacleCollision = map.checkObstacleCollision(this.getBounds()) || map.checkOutOfBounds(this.getBounds());
 
         if(goalCollision){
             brain.win();
@@ -80,7 +81,7 @@ public class Body extends GameObject{
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.GREEN);
+        g.setColor(brain.isAlive() ? Color.GREEN : Color.BLACK);
         g.fillOval(x, y, SIZE, SIZE);
         brain.render(g);
     }
@@ -101,6 +102,14 @@ public class Body extends GameObject{
 
     public boolean isAlive(){
         return brain.isAlive();
+    }
+
+    public double distNearestGoal(){
+        return map.distNearestGoal(this.getBounds());
+    }
+
+    public MapHandler getMap(){
+        return map;
     }
     
 }
