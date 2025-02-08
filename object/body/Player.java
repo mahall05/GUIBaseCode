@@ -9,6 +9,12 @@ import input.key.KeyInput;
 public class Player extends Brain{
     private boolean up=false,down=false,left=false,right=false;
 
+    public Player(){
+        super();
+        this.isPlayer=true;
+    }
+
+
     public void moveUp(boolean moving){
         //System.out.println("Moving Right");
         up=moving;

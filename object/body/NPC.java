@@ -11,6 +11,7 @@ public class NPC extends Brain{
     //private boolean alive;
     //private boolean winner;
     private boolean endOfLife;
+    private boolean best=false;
 
     public NPC(int brainSize){
         steps = new Point[brainSize];
@@ -21,9 +22,10 @@ public class NPC extends Brain{
             steps[i] = new Point(Main.randomInt(0, Body.MAX_SPEED), Main.randomInt(0, 360));
         }
     }
-    public NPC(Brain b){
+    public NPC(Brain b, boolean best){
         steps = new Point[((NPC) b).getSteps().length];
         alive=true;
+        this.best=best;
 
         for(int i = 0; i < steps.length; i++){
             steps[i] = ((NPC) b).getSteps()[i];
@@ -61,8 +63,13 @@ public class NPC extends Brain{
     }
     @Override
     public double calcFitness() {
-        this.fitness = Math.pow(body.getMap().getMaxDistance()-body.distNearestGoal(), 5);
-        fitness *= (!alive && !endOfLife) ? 0 : 1.0;
+        if(winner){
+            fitness = 50000 - step*2;
+        }else{
+            fitness = Math.pow((body.getMap().getMaxDistance()-body.distNearestGoal()) * 2, 1);
+            fitness *= (!alive && !endOfLife) ? 0.5 : 1.0;
+        }
+        
         return fitness;
     }
     @Override
@@ -75,6 +82,14 @@ public class NPC extends Brain{
             }
 
         }
+    }
+
+    public void setBest(boolean best){
+        this.best=best;
+    }
+
+    public boolean isBest(){
+        return best;
     }
     
 }

@@ -93,7 +93,7 @@ public class Main extends Canvas implements Runnable {
 		Graphics2D g2d = (Graphics2D) g;
 		//////////////////////////////////////////////////
 		
-		g.setColor(Color.GRAY);
+		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, window.getWidth(), window.getHeight());
 
 		g2d.translate(-camera.getX(), -camera.getY());     // Everything in-between this...

@@ -79,11 +79,15 @@ public class Body extends GameObject{
         }
     }
 
-    @Override
-    public void render(Graphics g) {
-        g.setColor(brain.isAlive() ? Color.GREEN : Color.BLACK);
-        g.fillOval(x, y, SIZE, SIZE);
+    public void render(Graphics g, boolean closest) {
+        g.setColor(brain.isAlive() ? brain.isPlayer() ? Color.CYAN : ((NPC) brain).isBest() ? Color.RED : closest ? Color.ORANGE : Color.GREEN : Color.BLACK);
+        g.fillOval(x, y, SIZE * (!brain.isPlayer() && ((NPC) brain).isBest() ? 2 : 1), SIZE * (!brain.isPlayer() && ((NPC) brain).isBest() ? 2 : 1));
         brain.render(g);
+    }
+
+    @Override
+    public void render(Graphics g){
+
     }
 
     @Override

@@ -15,7 +15,7 @@ public class Generation extends GameObject{
     private int size;
 
     private final int BRAIN_SIZE = 1000;
-    private final double MUT_RATE = 0.02;
+    private final double MUT_RATE = 0.05;
 
     public Generation(Point spawnPoint, int size, MapHandler map){
         super(0,0);
@@ -35,8 +35,10 @@ public class Generation extends GameObject{
         this.map=map;
         this.size=brains.length;
 
+        bodies.add(new Body(spawnPoint, new NPC(brains[0], true), map));
+
         for(int i = 0; i < size; i++){
-            bodies.add(new Body(spawnPoint, new NPC(brains[i]), map));
+            bodies.add(new Body(spawnPoint, new NPC(brains[i], false), map));
         }
     }
 
@@ -64,8 +66,8 @@ public class Generation extends GameObject{
     }
 
     public void mutate(){
-        for(Body b : bodies){
-            b.getBrain().mutate(MUT_RATE);
+        for(int i = 1; i < bodies.size(); i++){
+            bodies.get(i).getBrain().mutate(MUT_RATE);
         }
     }
 
@@ -78,8 +80,18 @@ public class Generation extends GameObject{
 
     @Override
     public void render(Graphics g) {
-        for(Body b : bodies){
-            b.render(g);
+
+        double maxFitness = Double.MIN_VALUE;
+        int maxIndex = -1;
+        for(int i = 0; i < bodies.size(); i++){
+            if(bodies.get(i).getBrain().calcFitness() > maxFitness){
+                maxIndex=i;
+                maxFitness=bodies.get(i).getBrain().calcFitness();
+            }
+        }
+
+        for(int i = 0; i < bodies.size(); i++){
+            bodies.get(i).render(g, i==maxIndex);
         }
     }
 
