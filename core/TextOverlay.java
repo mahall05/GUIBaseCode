@@ -28,6 +28,11 @@ public class TextOverlay extends GameObject {
         g.setColor(Color.white);
         g.drawString("Generation: " + population.getGeneration(), Main.WIDTH-100, 20);
         g.drawString("Closest: " + (int) population.getMap().distNearestGoal(population.getGen().getBestBoy().getBounds()), Main.WIDTH-100, 40);
+        try{
+            g.drawString("Best Steps: " + population.updateBestSteps(), Main.WIDTH-100, 60);
+        }catch(NullPointerException e){
+            g.drawString("Best Steps: -1", Main.WIDTH-100, 60);
+        }
     }
 
     @Override

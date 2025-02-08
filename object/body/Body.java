@@ -12,7 +12,7 @@ public class Body extends GameObject{
     private Brain brain;
     private MapHandler map;
 
-    public static final int MAX_SPEED = 5;
+    public static final int MAX_SPEED = 7;
     public final int SIZE = 10;
     private final int FRICTION = 2;
 

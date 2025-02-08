@@ -24,7 +24,12 @@ public class MapHandler extends GameObject{
         Main.get().getHandler().addObject(this);
 
         goals = new MapObject[] {new MapObject(Main.WIDTH/2-25, 0, 50, 50, MapObject.Type.GOAL)};
-        obstacles = new MapObject[] {new MapObject(Main.WIDTH/2-200, Main.HEIGHT/2-25, 400, 50, MapObject.Type.OBSTACLE)};
+        obstacles = new MapObject[] {
+            new MapObject(Main.WIDTH/2-200, Main.HEIGHT/2+50, 400, 25, MapObject.Type.OBSTACLE),
+            new MapObject(0, Main.HEIGHT/2-75, 350, 25, MapObject.Type.OBSTACLE),
+            new MapObject(Main.WIDTH-350, Main.HEIGHT/2-75, 350, 25, MapObject.Type.OBSTACLE),
+            new MapObject(Main.WIDTH/2-200, Main.HEIGHT/2-200, 400, 25, MapObject.Type.OBSTACLE)
+        };
 
         mapCorners = new Point[] {
             new Point(0,0),

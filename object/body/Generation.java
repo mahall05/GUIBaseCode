@@ -15,7 +15,7 @@ public class Generation extends GameObject{
     private int size;
 
     private final int BRAIN_SIZE = 1000;
-    private final double MUT_RATE = 0.1;
+    private final double MUT_RATE = 0.15;
 
     private Body bestBoy;
 
@@ -109,5 +109,9 @@ public class Generation extends GameObject{
 
     public Body getBestBoy(){
         return bestBoy;
+    }
+
+    public ArrayList<Body> getBodies(){
+        return bodies;
     }
 }

@@ -14,7 +14,7 @@ public class PopulationHandler extends GameObject{
     private final boolean INCLUDE_PLAYER = false;
     private Body playerBody;
 
-    private final int POPULATION_SIZE = 1000;
+    private final int POPULATION_SIZE = 20000;
     private Generation gen;
     private Generation lastGen;
 
@@ -23,6 +23,7 @@ public class PopulationHandler extends GameObject{
     private MapHandler map;
 
     private int generation=1;
+    private int winningSteps = -1;
 
 
     public PopulationHandler(MapHandler map){
@@ -39,6 +40,7 @@ public class PopulationHandler extends GameObject{
             Main.get().getHandler().addObject(playerBody);
         }
         
+
         gen = new Generation(spawnPoint, POPULATION_SIZE, map);
 
     }
@@ -53,6 +55,7 @@ public class PopulationHandler extends GameObject{
 
             createNextGen();
             generation++;
+            updateBestSteps();
 
         }else{
             gen.tick();
@@ -70,7 +73,12 @@ public class PopulationHandler extends GameObject{
         Brain[] newBrains = new Brain[POPULATION_SIZE];
 
         double maxFitness=Double.MIN_NORMAL;
-        int maxIndex=-1;
+        int maxI=-1;
+        int maxJ=-1;
+        for(int i = 0; i < lastBrains.length; i++){
+            for(int j = 0; j < ((NPC) lastBrains[i]).)
+        }
+
         for(int i = 0; i < lastBrains.length; i++){
             if(lastBrains[i].getFitness() > maxFitness){
                 maxFitness=lastBrains[i].getFitness();
@@ -127,4 +135,19 @@ public class PopulationHandler extends GameObject{
     public MapHandler getMap(){
         return map;
     }
+
+    public int updateBestSteps(){
+        int min = Integer.MAX_VALUE;
+
+        for(Body b : lastGen.getBodies()){
+            if(((NPC) b.getBrain()).isWinner() && ((NPC) b.getBrain()).getStep() < min){
+                min = ((NPC) b.getBrain()).getStep();
+            }
+        }
+
+        if(min!=Integer.MAX_VALUE) winningSteps=min;
+        return winningSteps;
+    }
+
+
 }

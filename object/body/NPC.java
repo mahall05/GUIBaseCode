@@ -13,8 +13,11 @@ public class NPC extends Brain{
     private boolean endOfLife;
     private boolean best=false;
 
+    private double[] fitnessTracker;
+
     public NPC(int brainSize){
         steps = new Point[brainSize];
+        fitnessTracker = new double[brainSize];
         alive=true;
         endOfLife=false;
 
@@ -64,12 +67,13 @@ public class NPC extends Brain{
     @Override
     public double calcFitness() {
         if(winner){
-            fitness = Math.max(Math.pow((body.getMap().getMaxDistance()) * 5, 1), steps.length * 5)*10 - step*10;
+            fitness = Math.max(Math.pow((body.getMap().getMaxDistance()), 3), steps.length * 5)*10 - step*10;
         }else{
-            fitness = Math.pow((body.getMap().getMaxDistance()-body.distNearestGoal()) * 2, 1);
-            fitness *= (!alive && !endOfLife) ? 0.5 : 1.0;
+            fitness = Math.pow((body.getMap().getMaxDistance()-body.distNearestGoal()), 3);
+            fitness *= (!alive && !endOfLife) ? 0.15 : 1.0;
         }
         
+        fitnessTracker[step] = fitness;
         return fitness;
     }
     @Override
@@ -91,5 +95,12 @@ public class NPC extends Brain{
     public boolean isBest(){
         return best;
     }
+    public boolean isWinner(){
+        return winner;
+    }
+    public int getStep(){
+        return step;
+    }
+    
     
 }
