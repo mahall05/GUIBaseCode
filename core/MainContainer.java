@@ -12,7 +12,8 @@ public class MainContainer {
 
     public MainContainer(){
         map = new MapHandler();
-        population=new PopulationHandler(map);
+        population = new PopulationHandler(map);
+        Main.get().setOverlay(new TextOverlay(population));
 
 
         // Leave at the end

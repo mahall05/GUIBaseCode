@@ -3,15 +3,19 @@ package object.body;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import input.key.KeyInput;
 
 public class Player extends Brain{
     private boolean up=false,down=false,left=false,right=false;
+    private ArrayList<Point> steps;
 
     public Player(){
         super();
         this.isPlayer=true;
+        alive=true;
+        this.steps = new ArrayList<Point>();
     }
 
 
@@ -82,10 +86,14 @@ public class Player extends Brain{
     }
 
     public void tick(){
-        up=KeyInput.keyChain.get(KeyEvent.VK_W);
-        down=KeyInput.keyChain.get(KeyEvent.VK_S);
-        right=KeyInput.keyChain.get(KeyEvent.VK_D);
-        left=KeyInput.keyChain.get(KeyEvent.VK_A);
+        if(alive){
+            up=KeyInput.keyChain.get(KeyEvent.VK_W);
+            down=KeyInput.keyChain.get(KeyEvent.VK_S);
+            right=KeyInput.keyChain.get(KeyEvent.VK_D);
+            left=KeyInput.keyChain.get(KeyEvent.VK_A);
+
+            steps.add(accelerate());
+        }
     }
     @Override
     public boolean isAlive() {

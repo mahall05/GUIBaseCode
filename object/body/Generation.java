@@ -15,7 +15,9 @@ public class Generation extends GameObject{
     private int size;
 
     private final int BRAIN_SIZE = 1000;
-    private final double MUT_RATE = 0.05;
+    private final double MUT_RATE = 0.1;
+
+    private Body bestBoy;
 
     public Generation(Point spawnPoint, int size, MapHandler map){
         super(0,0);
@@ -89,6 +91,7 @@ public class Generation extends GameObject{
                 maxFitness=bodies.get(i).getBrain().calcFitness();
             }
         }
+        bestBoy = bodies.get(maxIndex);
 
         for(int i = 0; i < bodies.size(); i++){
             bodies.get(i).render(g, i==maxIndex);
@@ -102,5 +105,9 @@ public class Generation extends GameObject{
     @Override
     public Bounds getBounds() {
         return new Bounds(0,0,0,0);
+    }
+
+    public Body getBestBoy(){
+        return bestBoy;
     }
 }

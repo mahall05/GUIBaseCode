@@ -21,6 +21,7 @@ public class Main extends Canvas implements Runnable {
 	private Camera camera;
 	private Window window;
 	private MainContainer container;
+	private TextOverlay overlay;
 
 	public static final int HEIGHT= 700, WIDTH=800;
 
@@ -110,6 +111,9 @@ public class Main extends Canvas implements Runnable {
 		
 		g2d.translate(camera.getX(), camera.getY());     // ...and this is being translated
 		
+
+		overlay.render(g);
+		
 		
 		/*
 		g.setColor(Color.gray);
@@ -167,6 +171,10 @@ public class Main extends Canvas implements Runnable {
 		long range = maxInclusive - minInclusive + 1;
 		long rng = (long)(Math.random() * range) + minInclusive;
 		return rng;
+	}
+
+	public void setOverlay(TextOverlay o){
+		this.overlay=o;
 	}
 
 	

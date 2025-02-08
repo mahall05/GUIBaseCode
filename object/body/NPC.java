@@ -64,7 +64,7 @@ public class NPC extends Brain{
     @Override
     public double calcFitness() {
         if(winner){
-            fitness = 50000 - step*2;
+            fitness = Math.max(Math.pow((body.getMap().getMaxDistance()) * 5, 1), steps.length * 5)*10 - step*10;
         }else{
             fitness = Math.pow((body.getMap().getMaxDistance()-body.distNearestGoal()) * 2, 1);
             fitness *= (!alive && !endOfLife) ? 0.5 : 1.0;

@@ -22,6 +22,8 @@ public class PopulationHandler extends GameObject{
 
     private MapHandler map;
 
+    private int generation=1;
+
 
     public PopulationHandler(MapHandler map){
         super(0,0);
@@ -50,6 +52,7 @@ public class PopulationHandler extends GameObject{
         if(gen.allDead()){
 
             createNextGen();
+            generation++;
 
         }else{
             gen.tick();
@@ -111,5 +114,17 @@ public class PopulationHandler extends GameObject{
     public Bounds getBounds() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getBounds'");
+    }
+
+    public int getGeneration(){
+        return generation;
+    }
+
+    public Generation getGen(){
+        return gen;
+    }
+
+    public MapHandler getMap(){
+        return map;
     }
 }
