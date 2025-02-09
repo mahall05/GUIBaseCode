@@ -85,7 +85,7 @@ public abstract class Brain{
         if(winner){
             fitness = 100000;
         }else{
-            fitness = /*(body.getMap().getMaxDistance()-body.distNearestGoal());*/ body.getMap().getMaxDistance()*Math.pow(Math.E, -0.005*body.distNearestGoal()) * ((!alive && !endOfLife) ? 0.3 : 1.0);
+            fitness = 1000*Math.pow(Math.E, -0.007*body.distNearestGoal()) * ((!alive && !endOfLife) ? 0.3 : 1.0);
         }
         return fitness;
     }

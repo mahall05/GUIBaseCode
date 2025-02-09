@@ -18,7 +18,7 @@ public class PopulationHandler extends GameObject{
     private Generation gen;
     private Generation lastGen;
 
-    private final Point spawnPoint = new Point(Main.WIDTH/2, Main.HEIGHT-100);
+    private final Point spawnPoint = new Point(Main.WIDTH/5*4, Main.HEIGHT-100);
 
     private MapHandler map;
 
