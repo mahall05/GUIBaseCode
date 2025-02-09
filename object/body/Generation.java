@@ -72,12 +72,12 @@ public class Generation extends GameObject{
         double maxFitness = Double.MIN_VALUE;
         int maxIndex = -1;
         for(int i = 0; i < bodies.size(); i++){
-            if(bodies.get(i).getBrain().calculateFitness() > maxFitness){
+            if(((NPC) bodies.get(i).getBrain()).getCurrentFitness() > maxFitness){
                 maxIndex=i;
-                maxFitness=bodies.get(i).getBrain().calculateFitness();
+                maxFitness= ((NPC) bodies.get(i).getBrain()).getCurrentFitness();
             }
         }
-        bestBoy = bodies.get(maxIndex);
+        if(maxIndex > -1) bestBoy = bodies.get(maxIndex);
 
         for(int i = 0; i < bodies.size(); i++){
             bodies.get(i).render(g, i==maxIndex);

@@ -47,6 +47,7 @@ public class NPC extends Brain{
     public void tick() {
         if(alive){
             fitnessTracker[step] = calculateFitness();
+            maxFitness= Math.max(fitnessTracker[step], maxFitness);
             step++;
             if(step>=steps.length){
                 alive=false;
@@ -61,13 +62,12 @@ public class NPC extends Brain{
     }
 
     @Override
-    public double calculateFitness(){
+    protected double calculateFitness(){
         double fitness;
         if(winner){
-            fitness = Math.max(Math.pow((body.getMap().getMaxDistance()), 3), steps.length * 5)*10 - step*10;
+            fitness = Math.max(Math.pow((body.getMap().getMaxDistance()), 3), steps.length * 5)*10 * (1.0 - (step/steps.length));
         }else{
             fitness = Math.pow((body.getMap().getMaxDistance()-body.distNearestGoal()), 3);
-            fitness *= (!alive && !endOfLife) ? 0.15 : 1.0;
         }
         return fitness;
     }
@@ -92,6 +92,15 @@ public class NPC extends Brain{
     }
     public int getStep(){
         return step;
+    }
+
+    @Override
+    public double getMaxFitness(){
+        return super.getMaxFitness() * ((!alive && !endOfLife) ? 0.15 : 1.0);
+    }
+
+    public double getCurrentFitness(){
+        return fitnessTracker[step];
     }
 
     

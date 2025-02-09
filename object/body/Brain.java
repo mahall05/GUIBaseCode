@@ -9,6 +9,7 @@ public abstract class Brain {
     protected double[] fitnessTracker;
     protected Body body;
     protected boolean isPlayer=false;
+    protected double maxFitness = Double.MIN_VALUE;
 
     public Brain() {
 
@@ -21,7 +22,7 @@ public abstract class Brain {
     public abstract void tick();
     public abstract void render(Graphics g);
     
-    public abstract double calculateFitness();
+    protected abstract double calculateFitness();
     public abstract void mutate(double rate);
 
     public boolean isAlive(){
@@ -37,10 +38,6 @@ public abstract class Brain {
         return fitnessTracker;
     }
     public double getMaxFitness(){
-        double maxFitness = Double.MIN_VALUE;
-        for(double d : fitnessTracker){
-            maxFitness = Math.max(d, maxFitness);
-        }
         return maxFitness;
     }
     public void setBody(Body b){
