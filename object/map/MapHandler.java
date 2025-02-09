@@ -38,7 +38,7 @@ public class MapHandler extends GameObject{
             new Point(Main.WIDTH, Main.HEIGHT)
         };
 
-        maxDistance = maxFitness();
+        maxDistance = maxDistance();
     }
 
     public boolean checkGoalCollision(Bounds b){
@@ -95,7 +95,7 @@ public class MapHandler extends GameObject{
         throw new UnsupportedOperationException("Unimplemented method 'getBounds'");
     }
 
-    public double maxFitness(){
+    public double maxDistance(){
         double maxDistance = Double.MIN_VALUE;
         for(int i = 0; i < goals.length; i++){
             maxDistance = Math.max(maxDistance,
@@ -123,10 +123,6 @@ public class MapHandler extends GameObject{
         }
 
         return minDistance;
-    }
-
-    public double getMaxDistance(){
-        return maxDistance;
     }
     
 }

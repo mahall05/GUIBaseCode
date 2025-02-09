@@ -15,7 +15,7 @@ public class Generation extends GameObject{
     private int size;
 
     public final int BRAIN_SIZE = 1000;
-    private final double MUT_RATE = 0.02;
+    private final double MUT_RATE = 0.1;
     private int step = 0;
 
     private Body bestBoy;
@@ -30,6 +30,7 @@ public class Generation extends GameObject{
         for(int i = 0; i < size; i++){
             bodies.add(new Body(spawnPoint, new NPC(BRAIN_SIZE), map));
         }
+        bestBoy=bodies.get(0);
     }
     public Generation(Point spawnPoint, Brain[] brains, MapHandler map){
         super(0,0);
@@ -38,11 +39,20 @@ public class Generation extends GameObject{
         this.map=map;
         this.size=brains.length;
 
-        bodies.add(new Body(spawnPoint, new NPC(brains[0], true), map));
+        if(brains[0]==null){
+            bodies.add(new Body(spawnPoint, new NPC(BRAIN_SIZE), map));
+         }else{
+            bodies.add(new Body(spawnPoint, new NPC(brains[0], true), map));
+         }
 
-        for(int i = 0; i < size; i++){
-            bodies.add(new Body(spawnPoint, new NPC(brains[i], false), map));
+        for(int i = 1; i < size; i++){
+            if(brains[i]==null){
+                bodies.add(new Body(spawnPoint, new NPC(BRAIN_SIZE), map));
+             }else{
+                bodies.add(new Body(spawnPoint, new NPC(brains[i], false), map));
+             }
         }
+        bestBoy=bodies.get(0);
     }
 
     public boolean allDead(){
@@ -63,7 +73,7 @@ public class Generation extends GameObject{
     @Override
     public void tick() {
         for(Body b : bodies){
-            b.tick();
+            b.tick(map.maxDistance()-bestBoy.distNearestGoal());
         }
         step++;
     }

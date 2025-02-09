@@ -26,10 +26,14 @@ public class Body extends GameObject{
     public Body(Point p, Brain brain, MapHandler map){
         this((int) p.getX(), (int) p.getY(), brain, map);
     }
-    
+
     @Override
-    public void tick() {
-        PolarVect movementVector = brain.tick();
+    public void tick(){
+
+    }
+    
+    public void tick(double bestFit) {
+        PolarVect movementVector = brain.tick(bestFit);
 
         velX += movementVector.getDistance() * Math.cos(movementVector.getRadians());
         velY += movementVector.getDistance() * -Math.sin(movementVector.getRadians());
@@ -75,7 +79,7 @@ public class Body extends GameObject{
 
     public void render(Graphics g, boolean closest) {
         g.setColor(brain.isAlive() ? brain.isPlayer() ? Color.CYAN : ((NPC) brain).isBest() ? Color.RED : closest ? Color.ORANGE : Color.GREEN : Color.BLACK);
-        g.fillOval(x, y, SIZE * (!brain.isPlayer() && ((NPC) brain).isBest() ? 2 : 1), SIZE * (!brain.isPlayer() && ((NPC) brain).isBest() ? 2 : 1));
+        g.fillOval(x, y, (int) (SIZE * (!brain.isPlayer() && ((NPC) brain).isBest() ? 1.5 : 1)), (int) (SIZE * (!brain.isPlayer() && ((NPC) brain).isBest() ? 1.5 : 1)));
         brain.render(g);
     }
 

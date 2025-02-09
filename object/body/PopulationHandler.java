@@ -91,7 +91,7 @@ public class PopulationHandler extends GameObject{
 
             for(int j = 0; j < lastBrains.length; j++){
                 runningSum += lastBrains[j].getMaxFitness();
-                if(randNum < runningSum){
+                if(randNum <= runningSum){
                     newBrains[i] = lastBrains[j];
                     break;
                 }

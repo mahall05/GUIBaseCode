@@ -49,14 +49,15 @@ public abstract class Brain{
     /**
      * Any type of brain should have a tick() to determine, in one way or another, how the body should move
      */
-    public PolarVect tick(){
-        currentFitness = calculateFitness();
-        fitnessTracker[step] = currentFitness;
+    public PolarVect tick(double bestFit){
+        currentFitness = calculateFitness(bestFit);
+        
         maxFitness= Math.max(currentFitness, maxFitness);
 
         if(alive){
             PolarVect movement = move();
             steps[step] = movement;
+            fitnessTracker[step] = currentFitness;
             
             step++;
             if(step>=brainSize){
@@ -80,12 +81,12 @@ public abstract class Brain{
      * Calculate the current fitness of the brain based on its current location
      * @return The dot's fitness
      */
-    protected double calculateFitness(){
+    protected double calculateFitness(double bestFit){
         double fitness;
         if(winner){
-            fitness = 100000;
+            fitness = 10000 + 100*(brainSize-step);
         }else{
-            fitness = 1000*Math.pow(Math.E, -0.007*body.distNearestGoal()) * ((!alive && !endOfLife) ? 0.3 : 1.0);
+            fitness = bestFit*Math.pow(Math.E, -0.02*body.distNearestGoal()) * ((!alive && !endOfLife) ? 0.1 : 1.0);
         }
         return fitness;
     }
