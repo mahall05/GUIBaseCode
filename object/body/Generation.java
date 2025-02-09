@@ -16,6 +16,7 @@ public class Generation extends GameObject{
 
     public final int BRAIN_SIZE = 1000;
     private final double MUT_RATE = 0.15;
+    private int step = 0;
 
     private Body bestBoy;
 
@@ -64,13 +65,14 @@ public class Generation extends GameObject{
         for(Body b : bodies){
             b.tick();
         }
+        step++;
     }
 
     @Override
     public void render(Graphics g) {
 
         int maxIndex=-1;
-        if(bodies.get(0).getBrain().getStep()<BRAIN_SIZE){
+        if(step<BRAIN_SIZE){
             double maxFitness = Double.MIN_VALUE;
             for(int i = 0; i < bodies.size(); i++){
                 if(bodies.get(i).getBrain().getCurrentFitness() > maxFitness){

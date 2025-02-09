@@ -8,6 +8,7 @@ public abstract class Brain{
     protected Body body;
     
     protected double maxFitness;
+    protected double currentFitness;
 
     protected PolarVect[] steps;
     protected double[] fitnessTracker;
@@ -49,12 +50,14 @@ public abstract class Brain{
      * Any type of brain should have a tick() to determine, in one way or another, how the body should move
      */
     public PolarVect tick(){
+        currentFitness = calculateFitness();
+        fitnessTracker[step] = currentFitness;
+        maxFitness= Math.max(currentFitness, maxFitness);
+
         if(alive){
             PolarVect movement = move();
             steps[step] = movement;
-            fitnessTracker[step] = calculateFitness();
-            maxFitness= Math.max(fitnessTracker[step], maxFitness);
-
+            
             step++;
             if(step>=brainSize){
                 alive=false;
@@ -80,9 +83,9 @@ public abstract class Brain{
     protected double calculateFitness(){
         double fitness;
         if(winner){
-            fitness = Math.max(Math.pow((body.getMap().getMaxDistance()), 3), steps.length * 5)*10 * (1.0 - (step/steps.length));
+            fitness = 100000;
         }else{
-            fitness = Math.pow((body.getMap().getMaxDistance()-body.distNearestGoal()), 3);
+            fitness = /*(body.getMap().getMaxDistance()-body.distNearestGoal());*/ body.getMap().getMaxDistance()*Math.pow(Math.E, -0.005*body.distNearestGoal()) * ((!alive && !endOfLife) ? 0.3 : 1.0);
         }
         return fitness;
     }
@@ -124,7 +127,7 @@ public abstract class Brain{
         return step;
     }
     public double getCurrentFitness(){
-        return step>= fitnessTracker.length ? fitnessTracker[fitnessTracker.length-1] : fitnessTracker[step];
+        return currentFitness;
     }
     public PolarVect[] getSteps(){
         return steps;

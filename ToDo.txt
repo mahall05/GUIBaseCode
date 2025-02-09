@@ -8,3 +8,6 @@ One will hurt framerate the other will hurt loading time
 
 Now all steps post death will be PolarVect(0,0)
 Therefore, if an ALIVE dot encounters a copied PolarVect that is 0,0 , it needs to randomize a new step
+
+
+I need the exponential to base off of the current best, not the overall best possible
