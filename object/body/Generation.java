@@ -14,7 +14,7 @@ public class Generation extends GameObject{
     private ArrayList<Body> bodies = new ArrayList<Body>();
     private int size;
 
-    private final int BRAIN_SIZE = 1000;
+    public final int BRAIN_SIZE = 1000;
     private final double MUT_RATE = 0.15;
 
     private Body bestBoy;
@@ -69,15 +69,17 @@ public class Generation extends GameObject{
     @Override
     public void render(Graphics g) {
 
-        double maxFitness = Double.MIN_VALUE;
-        int maxIndex = -1;
-        for(int i = 0; i < bodies.size(); i++){
-            if(((NPC) bodies.get(i).getBrain()).getCurrentFitness() > maxFitness){
-                maxIndex=i;
-                maxFitness= ((NPC) bodies.get(i).getBrain()).getCurrentFitness();
+        int maxIndex=-1;
+        if(bodies.get(0).getBrain().getStep()<BRAIN_SIZE){
+            double maxFitness = Double.MIN_VALUE;
+            for(int i = 0; i < bodies.size(); i++){
+                if(bodies.get(i).getBrain().getCurrentFitness() > maxFitness){
+                    maxIndex=i;
+                    maxFitness= bodies.get(i).getBrain().getCurrentFitness();
+                }
             }
+            if(maxIndex > -1) bestBoy = bodies.get(maxIndex);
         }
-        if(maxIndex > -1) bestBoy = bodies.get(maxIndex);
 
         for(int i = 0; i < bodies.size(); i++){
             bodies.get(i).render(g, i==maxIndex);

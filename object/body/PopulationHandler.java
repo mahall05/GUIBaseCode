@@ -35,7 +35,7 @@ public class PopulationHandler extends GameObject{
         Main.get().getHandler().addObject(this);
 
         if(INCLUDE_PLAYER){
-            playerBody = new Body(100,100,new Player(), map);
+            playerBody = new Body(100,100,new Player(gen.BRAIN_SIZE), map);
             Main.get().getCamera().setParent(playerBody);
             Main.get().getHandler().addObject(playerBody);
         }

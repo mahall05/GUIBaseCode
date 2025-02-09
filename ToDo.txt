@@ -1,2 +1,10 @@
 Better active button system
 BUtton interfaces for toggle vs holding stuff
+
+Is it faster to determine steps on the fly or randomize them before hand?
+One will hurt framerate the other will hurt loading time
+
+
+
+Now all steps post death will be PolarVect(0,0)
+Therefore, if an ALIVE dot encounters a copied PolarVect that is 0,0 , it needs to randomize a new step

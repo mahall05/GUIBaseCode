@@ -6,6 +6,7 @@ import java.awt.Point;
 
 import object.Bounds;
 import object.GameObject;
+import object.PolarVect;
 import object.map.MapHandler;
 
 public class Body extends GameObject{
@@ -28,28 +29,23 @@ public class Body extends GameObject{
     
     @Override
     public void tick() {
-        Point polarCoord = brain.accelerate();
-        //System.out.println("Angle: " + angle);
+        PolarVect movementVector = brain.tick();
 
-        if(polarCoord.getY()!=999){
-            velX+= polarCoord.getX() * Math.cos(polarCoord.getY()*Math.PI/180);
-            velY+= polarCoord.getX() * -Math.sin(polarCoord.getY()*Math.PI/180);
-        }
+        velX += movementVector.getDistance() * Math.cos(movementVector.getRadians());
+        velY += movementVector.getDistance() * -Math.sin(movementVector.getRadians());
 
         if(velY>10)velY=10;
         if(velX>10)velX=10;
-
         if(velY<-10)velY=-10;
         if(velX<-10)velX=-10;
 
-        if(Math.abs(velY)<MAX_SPEED*0.01) velY=0;
-        if(Math.abs(velX)<MAX_SPEED*0.01) velX=0;
-
-        //System.out.println("X: "+velX+",   Y: "+velY);
+        if(Math.abs(velY)<MAX_SPEED*0.01) velY=0; // Prevent extraneous drifting
+        if(Math.abs(velX)<MAX_SPEED*0.01) velX=0; // Prevent extraneous drifting
 
         x+=velX;
         y+=velY;
 
+        /* CALCULATE FRICTION FORCES */
         if(velX!=0){
             if(Math.abs(velX)<FRICTION){
                 velX=0;
@@ -64,8 +60,6 @@ public class Body extends GameObject{
                 velY = (Math.abs(velY)-FRICTION) * velY/Math.abs(velY);
             }
         }
-        
-        brain.tick();
 
         boolean goalCollision = map.checkGoalCollision(this.getBounds());
         boolean obstacleCollision = map.checkObstacleCollision(this.getBounds()) || map.checkOutOfBounds(this.getBounds());

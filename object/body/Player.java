@@ -1,43 +1,29 @@
 package object.body;
 
-import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import input.key.KeyInput;
+import object.PolarVect;
 
 public class Player extends Brain{
     private boolean up=false,down=false,left=false,right=false;
-    private ArrayList<Point> steps;
 
-    public Player(){
-        super();
+    public Player(int brainSize){
+        super(brainSize);
         this.isPlayer=true;
-        alive=true;
-        this.steps = new ArrayList<Point>();
     }
 
-
-    public void moveUp(boolean moving){
-        //System.out.println("Moving Right");
-        up=moving;
-    }
-    public void moveDown(boolean moving){
-        //System.out.println("Moving Right");
-        down=moving;
-    }
-    public void moveLeft(boolean moving){
-        //System.out.println("Moving Right");
-        left=moving;
-    }
-    public void moveRight(boolean moving){
-        //System.out.println("Moving Right");
-        right=moving;
-    }
-
+    /**
+     * This will only be called when the dot is alive
+     */
     @Override
-    public Point accelerate() {
+    protected PolarVect move() {
+        up=KeyInput.keyChain.get(KeyEvent.VK_W);
+        down=KeyInput.keyChain.get(KeyEvent.VK_S);
+        right=KeyInput.keyChain.get(KeyEvent.VK_D);
+        left=KeyInput.keyChain.get(KeyEvent.VK_A);
+
         if(right&left){
             right=false;
             left=false;
@@ -48,65 +34,37 @@ public class Player extends Brain{
         }
 
         int angle;
-
         if(up){
             if(right){
-                angle=45;
+                angle=45; // NE
             }
             else if(left){
-                angle=135;
+                angle=135; // NW
             }else{
-                angle=90;
+                angle=90; // N
             }
         }else if(down){
             if(right){
-                angle=315;
+                angle=315; // SE
             }else if(left){
-                angle=225;
+                angle=225; // SW
             }else{
-                angle=270;
+                angle=270; // S
             }
         }else if(right){
-            angle=0;
+            angle=0; // E
         }else if(left){
-            angle=180;
+            angle=180; // W
         }else{
-            angle=999;
+            angle=999; // NO MOVEMENT
         }
 
-        return alive ? new Point(Body.MAX_SPEED, angle) : new Point(0, 999);
+        return new PolarVect(Body.MAX_SPEED, angle);
     }
 
-    private enum Direction{
-        N,NE,E,SE,S,SW,W,NW,ZERO
-    }
 
-    public void render(Graphics g){
-
-    }
-
-    public void tick(){
-        if(alive){
-            up=KeyInput.keyChain.get(KeyEvent.VK_W);
-            down=KeyInput.keyChain.get(KeyEvent.VK_S);
-            right=KeyInput.keyChain.get(KeyEvent.VK_D);
-            left=KeyInput.keyChain.get(KeyEvent.VK_A);
-
-            steps.add(accelerate());
-        }
-    }
-    @Override
-    public boolean isAlive() {
-        return alive;
-    }
-    @Override
-    public double calculateFitness() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calcFitness'");
-    }
     @Override
     public void mutate(double rate) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mutate'");
+        // player brain can't mutate
     }
 }
