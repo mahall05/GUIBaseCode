@@ -15,7 +15,7 @@ public class Generation extends GameObject{
     private int size;
 
     public final int BRAIN_SIZE = 1000;
-    private final double MUT_RATE = 0.1;
+    private final double MUT_RATE = 0.12;
     private int step = 0;
 
     private Body bestBoy;

@@ -9,6 +9,7 @@ public abstract class Brain{
     
     protected double maxFitness;
     protected double currentFitness;
+    protected double cumSum;
 
     protected PolarVect[] steps;
     protected double[] fitnessTracker;
@@ -51,7 +52,7 @@ public abstract class Brain{
      */
     public PolarVect tick(double bestFit){
         currentFitness = calculateFitness(bestFit);
-        
+        cumSum += currentFitness;
         maxFitness= Math.max(currentFitness, maxFitness);
 
         if(alive){
@@ -132,5 +133,8 @@ public abstract class Brain{
     }
     public PolarVect[] getSteps(){
         return steps;
+    }
+    public double getCumSum(){
+        return cumSum;
     }
 }
